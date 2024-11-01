@@ -1,0 +1,50 @@
+> [!TIP] 
+> Solución al "Bug" que genera que el "./nodebb setup" se quede pegado, incluso problemas de cobertura baja o de administración/permisos. 
+>
+> La raiz del problema es parece ser la versión de `Node` utilizada, actualmente `Node` tiene una versión `23.x.x` que tiene aspectos EXPERIMENTALES con los módulos `import/export` por tanto se queda pegado o se instala muy lento NodeBB. Por tanto, debemos trabajar con la version `LTS` de `Node` que es `20.x.x`.
+>
+> USA TU TERMINAL EN MODO ADMIN
+>
+> Luego, para esto es importante aplicar dos comandos en el siguiente orden `nvm install --lts`, después `nvm use --lts` esta última es la más importante para usar la versión `LTS`.
+>
+> Dado que, a pesar que el primer comando diga que "se esta usando la version estable" esto no parece aplicarse. Se debe especificar que se use la version LTS obligatoriamente.
+>
+> Seguidamente, puedes aplicar `./nodebb setup`.
+> IMPORTANTE: Si no inicias terminal como Admin es probable que cuando apliques `setup` o `npm run test` tengas problemas de permisos para acceder al archivo `package.json` que es el principal tanto para `Node` como para los `Test`.
+>
+> Para tener un App activa debemos aplicar, justo luego de lo anterior, lo siguiente `npm install` para quitar todos los packages defectuosos que no fueron instalados correctamente en el `setup` anterior. De lo contrario, tanto el `run lint` como el `run test` de daran error.
+>
+> Ahora, debes incluir el `TEST_DATABASE` para tener configurado el `run test` bien. Abre el archivo `.config.json` ubicado en la raíz del proyecto y agrega el test data base de `redis`:
+> ```json
+> "test_database": {
+>     "host": "127.0.0.1",
+>     "port": "6379",
+>     "password": "",
+>     "database": "1"
+> }
+> ```
+> 
+> Al final el archivo config.json te debe quedar asi
+> ```json
+> {
+>     "url": "http://localhost:4567",
+>     "secret": "21277047-643c-4995-9786-15f0eff20207",
+>     "database": "redis",
+>     "redis": {
+>         "host": "127.0.0.1",
+>         "port": "6379",
+>         "password": "",
+>         "database": "0"
+>     },
+>     "test_database": {
+>         "host": "127.0.0.1",
+>         "port": "6379",
+>         "password": "",
+>         "database": "1"
+>     },
+>     "port": "4567"
+> }
+> ```
+>
+> Teniendo estos pasos aplicados podrás usar `npm run test`, sin embargo es IMPORTANTE QUE TENGAS TU TERMINAL EN MODO ADMIN. sino el coverage posiblemente dará incorrectamente.
+
