@@ -1,3 +1,6 @@
+# Soluciones posibles
+
+## Primer Tip
 > [!TIP] 
 > Solución al "Bug" que genera que el "./nodebb setup" se quede pegado, incluso problemas de cobertura baja o de administración/permisos. 
 >
@@ -48,3 +51,27 @@
 >
 > Teniendo estos pasos aplicados podrás usar `npm run test`, sin embargo es IMPORTANTE QUE TENGAS TU TERMINAL EN MODO ADMIN. sino el coverage posiblemente dará incorrectamente.
 
+## Segundo Tip
+> [!TIP]
+> Ante situaciones de ```./nodebb setup```, ```npm run lint```, ```npm run test```, etc. Los problemas en su gran mayoria con estos comandos es por la versión de ```Node``` usada para ejecutarlas. Se recomienda encarecidamente usar la version ```LTS``` de ```Node``` por defecto en el proyecto(y en General). Los pasos a realizar son
+> 1. Aplicar en consola ```nvm install --lts```. Esto va a instalar la versión estable de ```Node``` en tu sistema.
+> 2. Ver la lista de versiones de ```Node``` instaladas en el sistema. Usa ```nvm ls```. 
+![image](https://github.com/user-attachments/assets/0d961393-d693-462f-be41-308e1a155f48)
+> 3. Debes desinstalar todas las versiones disponibles en tu sistema menos la versión LTS instalada anteriormente. De esta forma te aseguras que tu sistema/terminal inicie y disponga sólo de la versión ```LTS``` de ```Node``` en tu proyecto. Para esto usa el comando ```nvm uninstall <numero-versión>```, ejemplo si tengo la v23.0.1 puedo aplicar ```nvm uninstall 23.0.1```.
+
+## Tercer Tip
+> [!TIP]
+> Es recomendable no tener versiones de Node que no vayas a usar. Pero es recomendable tener  todas las versiones LTS existentes para el desarrollo de proyectos.
+> Al aplicar en consola el comando ```nvm ls-remote``` te saldran todas las versiones existentes de ```Node```.
+> La idea es instalar las versiones LTS de todas las categorias existentes. Para ello aplica el siguiente comando
+> ```nvm install --lts=argon; nvm install --lts=boron; nvm install --lts=carbon; nvm install --lts=dubnium; nvm install --lts=erbium; nvm install --lts=fermium; nvm install --lts=gallium; nvm install --lts=hydrogen; nvm install --lts=iron; nvm install --lts=jod;```
+> Luego, si aplicas ```nvm ls``` debe salir lo siguiente
+![image](https://github.com/user-attachments/assets/879d67e4-446c-4db4-bbd9-41a7c7d62436)
+> En este punto tienes todas las versiones LTS para eligir segun tu proyecto. Para ```NodeBB``` las pruebas realizadas para obtener un setup es usando la version ```HYDROGEN``` de ```Node```. Para usarla en tu sistema aplica ```nvm use --lts=hydrogen```.
+> Ahora para obtener un ```setup``` de NodeBB debemos realizar los siguientes pasos
+> Pre-requisito: Borra el repo actual ```sudo rm -r nodebb-usb-24-dummy/``` y luego clona ```git clone https://github.com/USB-CI3715/nodebb-usb-24-dummy.git```, tener ```redis-server``` activo.
+> 1. En la raiz del proyecto aplicar ```./nodebb setup```. Este comando hara que tu terminal se queda esperando, básicamente aca esta el bug de que no se instala debidamente el NodeBB. Aplica ```Ctrl+C```.
+> 2. Ahora se debe aplicar el siguiente comando ```npm install ./nodebb-plugin-theme-harmony```. Este comando hara que tu terminal se queda esperando también. Aplica ```Ctrl+C```.
+> 3. A partir de este punto, empezará a correr todo, aplica el comando ```npm install```. Debes esperar que se instalen todas las dependencias.
+> 4. Instala el plugin del theme que estamos modificando en el proyecto segun la implementacion de Andrea ```npm install ./nodebb-plugin-theme-harmony```, debes esperar a su correcta instalación.
+> 5. Finalmente, deberías aplicar ```./nodebb setup``` y sin problemas saldrá el Setup de NodeBB.
