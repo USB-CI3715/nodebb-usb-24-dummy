@@ -51,6 +51,14 @@ define('forum/groups/list', [
 							var trimestre = $('#newGroupTrim').val();
 							var year = $('#newGroupYear').val();
 							var seccion = $('#newGroupSecc').val();
+
+							// validacion del codigo
+							if(code.includes('-') || code.length != 6){ code = ''}
+
+							// validacion del nombre
+							name = name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+							if(name.length > 46){name = ''}
+
 							if (name && name.length && code && code.length && trimestre && trimestre.length) {
 								api.post('/groups', {
 									name: `${code} | ${name} | ${trimestre} ${year} | Prof. ${app.user.username} | Sec. ${seccion}`,
