@@ -86,6 +86,9 @@ groupsController.details = async function (req, res, next) {
 		return next();
 	}
 
+	const ownerUids = await groups.getOwners(groupName);
+    groupData.owners = await user.getUsersFields(ownerUids, ['uid', 'username', 'picture', 'userslug']);
+
 	res.render('groups/details', {
 		title: `[[pages:group, ${groupData.displayName}]]`,
 		group: groupData,
