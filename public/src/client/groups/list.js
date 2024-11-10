@@ -24,10 +24,10 @@ define('forum/groups/list', [
 						'<p>[[groups:new-group.course-trim]]:</p>' +
 						'<select id="newGroupTrim" class="form-control">' +
 						'<option value=""> —— </option>' +
-						'<option value="[[groups:new-group.course-trim.jm]]">[[groups:new-group.course-trim.jm]]</option>' +
-						'<option value="[[groups:new-group.course-trim.aj]]">[[groups:new-group.course-trim.aj]]</option>' +
-						'<option value="[[groups:new-group.course-trim.sd]]">[[groups:new-group.course-trim.sd]]</option>' +
-						'<option value="[[groups:new-group.course-trim.smmr]]">[[groups:new-group.course-trim.smmr]]</option>' +
+						'<option value="[[groups:new-group.course-trim.jm-alias]]">[[groups:new-group.course-trim.jm]]</option>' +
+						'<option value="[[groups:new-group.course-trim.aj-alias]]">[[groups:new-group.course-trim.aj]]</option>' +
+						'<option value="[[groups:new-group.course-trim.sd-alias]]">[[groups:new-group.course-trim.sd]]</option>' +
+						'<option value="[[groups:new-group.course-trim.smmr-alias]]">[[groups:new-group.course-trim.smmr]]</option>' +
 						'</select></br>' +
 						'<p>[[groups:new-group.course-year]]:</p>' +
 						'<select class="form-control" id="newGroupYear">' +
