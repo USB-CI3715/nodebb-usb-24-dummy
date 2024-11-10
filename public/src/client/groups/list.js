@@ -61,7 +61,7 @@ define('forum/groups/list', [
 
 							if (name && name.length && code && code.length && trimestre && trimestre.length) {
 								api.post('/groups', {
-									name: `${code} | ${name} | ${trimestre} ${year} | Prof. ${app.user.username} | Sec. ${seccion}`,
+									name: `${code} | ${name} | ${trimestre} ${year} | Sec. ${seccion}`,
 								}).then((res) => {
 									ajaxify.go('groups/' + res.slug);
 								}).catch(alerts.error);
