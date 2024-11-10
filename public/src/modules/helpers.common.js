@@ -382,19 +382,13 @@ module.exports = function (utils, Benchpress, relative_path) {
 		return html;
 	}
 
-	function showGroupName(groupName, memberObj){
+	function showGroupName(groupName, membersObj){
 		if (groupName === 'administrators' || groupName === 'Global Moderators' || groupName === 'Teachers') {
 			return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName}</div>`;
 		}
 
-		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${memberObj.username}</div>`;
-		/* for (const member of group.members){
-			console.log(member)
-			if (member.isOwner){
-				return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${groupOwner}</div>`;
-				// <span component="group-owner-name" data-group="${groupName}"></span>
-			}
-		} */
+		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${membersObj[0].username}</div>`;
+
 	}
 
 	function register() {
