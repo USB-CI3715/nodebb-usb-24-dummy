@@ -5,7 +5,8 @@
 		<a href="{config.relative_path}/groups/{./slug}" class="d-block h-100 text-reset text-decoration-none">
 			<div class="card-body d-flex flex-column gap-1 border border-top-0 rounded-bottom h-100">
 				<div class="d-flex">
-					{showGroupName(./displayName, ./owners)}
+					{showGroupNameList(./displayName, ./members)}
+					<div class="flex-shrink-0 text-sm"><i class="text-muted fa-solid fa-user"></i> {./memberCount}</div>
 				</div>
 				<div class="text-sm">{./description}</div>
 			</div>
