@@ -78,6 +78,25 @@ groupsController.details = async function (req, res, next) {
 	if (!groupData) {
 		return next();
 	}
+	const sort = req.query.sort || 'alpha';
+	const [groupsData] = await Promise.all([
+		groups.getGroupsBySort(sort, 0, 14),
+	]);
+
+	console.log('groupData', groupData);
+	console.log('groupsData', groupsData);
+	const currentGroupData = groupsData.find(g => g.name === groupName);
+	console.log('currentGroupData', currentGroupData);
+	const orderMap = new Map(currentGroupData.members.map((user, index) => [user.uid, index]));
+	groupData.members.sort((a, b) => {
+		const aOrder = orderMap.get(a.uid);
+		const bOrder = orderMap.get(b.uid);
+
+		const aPosition = (aOrder === undefined) ? Infinity : aOrder;
+		const bPosition = (bOrder === undefined) ? Infinity : bOrder;
+
+		return aPosition - bPosition;
+	});
 
 	res.render('groups/details', {
 		title: `[[pages:group, ${groupData.displayName}]]`,
