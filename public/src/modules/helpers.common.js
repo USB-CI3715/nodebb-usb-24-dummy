@@ -390,7 +390,7 @@ module.exports = function (utils, Benchpress, relative_path) {
 		}
 		const owners = membersObj.filter(member => member.isOwner);
 
-		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${owners[0].username}</div>`;
+		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${owners[owners.length - 1].username}</div>`;
 	}
 
 	function showGroupNameList(groupName, membersObj) {
