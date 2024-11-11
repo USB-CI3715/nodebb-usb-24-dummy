@@ -384,17 +384,15 @@ module.exports = function (utils, Benchpress, relative_path) {
 	}
 
 	function showGroupNameDetails(groupName, membersObj) {
-		console.log('Viewing group details for ', membersObj);
 		if (groupName === 'administrators' || groupName === 'Global Moderators' || groupName === 'Teachers') {
 			return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName}</div>`;
 		}
 		const owners = membersObj.filter(member => member.isOwner);
 
-		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${owners[owners.length - 1].username}</div>`;
+		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${owners[0].username}</div>`;
 	}
 
 	function showGroupNameList(groupName, membersObj) {
-		console.log("Viewing groups' list for ", membersObj);
 		if (groupName === 'administrators' || groupName === 'Global Moderators' || groupName === 'Teachers') {
 			return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName}</div>`;
 		}
