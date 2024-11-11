@@ -33,7 +33,8 @@ module.exports = function (utils, Benchpress, relative_path) {
 		humanReadableNumber,
 		formattedNumber,
 		generatePlaceholderWave,
-		showGroupName,
+		showGroupNameDetails,
+		showGroupNameList,
 		register,
 		__escape: identity,
 	};
@@ -382,13 +383,23 @@ module.exports = function (utils, Benchpress, relative_path) {
 		return html;
 	}
 
-	function showGroupName(groupName, membersObj){
+	function showGroupNameDetails(groupName, membersObj) {
+		console.log('Viewing group details for ', membersObj);
+		if (groupName === 'administrators' || groupName === 'Global Moderators' || groupName === 'Teachers') {
+			return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName}</div>`;
+		}
+		const owners = membersObj.filter(member => member.isOwner);
+
+		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${owners[0].username}</div>`;
+	}
+
+	function showGroupNameList(groupName, membersObj) {
+		console.log("Viewing groups' list for ", membersObj);
 		if (groupName === 'administrators' || groupName === 'Global Moderators' || groupName === 'Teachers') {
 			return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName}</div>`;
 		}
 
-		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${membersObj[0].username}</div>`;
-
+		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${membersObj[membersObj.length - 1].username}</div>`;
 	}
 
 	function register() {
