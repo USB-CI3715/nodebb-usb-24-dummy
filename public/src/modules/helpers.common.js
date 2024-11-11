@@ -387,9 +387,9 @@ module.exports = function (utils, Benchpress, relative_path) {
 		if (groupName === 'administrators' || groupName === 'Global Moderators' || groupName === 'Teachers') {
 			return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName}</div>`;
 		}
-		const owners = membersObj.filter(member => member.isOwner);
+		const groupCreator = membersObj.members.filter(member => member.uid === membersObj.creatorUid);
 
-		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${owners[0].username}</div>`;
+		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${groupCreator[0].username}</div>`;
 	}
 
 	function showGroupNameList(groupName, membersObj) {
@@ -397,7 +397,9 @@ module.exports = function (utils, Benchpress, relative_path) {
 			return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName}</div>`;
 		}
 
-		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${membersObj[membersObj.length - 1].username}</div>`;
+		const groupCreator = membersObj.members.filter(member => member.uid === membersObj.creatorUid);
+
+		return `<div class="flex-grow-1 fs-6 fw-semibold">${groupName} | Prof. ${groupCreator[0].username}</div>`;
 	}
 
 	function register() {
