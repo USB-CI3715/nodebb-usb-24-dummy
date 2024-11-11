@@ -20,13 +20,6 @@ groupsController.list = async function (req, res) {
 		privileges.global.can('group:create', req.uid),
 	]);
 
-	const groupsWithOwners = await Promise.all(groupData.map(async (group) => {
-        const ownerUids = await groups.getOwners(group.name);
-		const owners = await user.getUsersFields(ownerUids, ['uid', 'username', 'picture', 'userslug']);
-        group.owners = owners; // This adds the owners property that can be accessed via ./owners in template
-        return group;
-    }));
-
 	const groupsFiltered = await privileges.users.hasGroupPerms(req.uid, groupData);
 
 	res.render('groups/list', {
@@ -85,9 +78,6 @@ groupsController.details = async function (req, res, next) {
 	if (!groupData) {
 		return next();
 	}
-
-	const ownerUids = await groups.getOwners(groupName);
-    groupData.owners = await user.getUsersFields(ownerUids, ['uid', 'username', 'picture', 'userslug']);
 
 	res.render('groups/details', {
 		title: `[[pages:group, ${groupData.displayName}]]`,
