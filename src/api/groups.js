@@ -41,13 +41,44 @@ groupsAPI.create = async function (caller, data) {
 	const groupData = await groups.create(data);
 
 	// Creación de categoria respectiva al grupo
+
+	// Descripción divertida y académica de un ambiente de preguntas y respuestas.
+	function createCourseDescription(courseCode, courseName, trimester, year, section, teacher) {
+		return `💬 ¡Bienvenidos al fascinante ambiente de preguntas y respuestas en "${courseName}" (${courseCode})! 
+		Este espacio se lleva a cabo en el trimestre ${trimester} del año ${year}, en la sección ${section}. 
+		Bajo la moderación experta de el/la Prof. ${teacher} 👨‍🏫👩‍🏫.`;
+	}
+
+	// Extracción de información del curso.
+	const courseData = groupData.name.split(' | ');
+
+	const courseCode = courseData[0]; // Código del curso
+	const courseName = courseData[1]; // Nombre del curso
+
+	const timeCourseData = courseData[2].split(' '); // Momento en que se imparte el curso
+	// Diccionario para transformar los códigos de trimestre a sus significados
+	const trimesterDictionary = {
+		EM: 'Enero-Marzo',
+		AJ: 'Abril-Julio',
+		SD: 'Septiembre-Diciembre',
+		PI: 'Periodo Intensivo',
+		SC: 'Periodo Intensivo',
+	};
+	const trimester = trimesterDictionary[timeCourseData[0]]; // Trimestre del curso
+	const year = timeCourseData[1]; // Año del curso
+
+	const section = courseData[3].split(' ')[1]; // Sección asociada al curso.
+
+	const teacher = await user.getUserData(caller.uid); // Profesor respectivo del curso.
+
+	// Inicialización de la categoría
 	const dataCategory = {
 		name: groupData.name,
 		parentCid: null,
 		order: null,
-		description: `Join our dynamic Q&A forum for '${groupData.name.split(' | ')[1]}' where university professors and students collaborate, explore, and share knowledge. Dive into meaningful discussions, solve complex challenges, and enrich your learning experience together!`,
-		descriptionParsed: `Join our dynamic Q&A forum for '${groupData.name.split(' | ')[1]}' where university professors and students collaborate, explore, and share knowledge. Dive into meaningful discussions, solve complex challenges, and enrich your learning experience together!`,
-		icon: null,
+		description: createCourseDescription(courseCode, courseName, trimester, year, section, teacher.username),
+		descriptionParsed: createCourseDescription(courseCode, courseName, trimester, year, section, teacher.username),
+		icon: 'fa-book',
 		bgColor: null,
 		color: null,
 		disabled: 0,
@@ -57,7 +88,7 @@ groupsAPI.create = async function (caller, data) {
 		cloneFromCid: null,
 		cloneChildren: null,
 	};
-	await categories.create(dataCategory);
+	await categories.create(dataCategory); // Creación de la categoría.
 
 	logGroupEvent(caller, 'group-create', {
 		groupName: data.name,
