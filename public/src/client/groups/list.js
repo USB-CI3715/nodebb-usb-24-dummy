@@ -53,19 +53,19 @@ define('forum/groups/list', [
 							var seccion = $('#newGroupSecc').val();
 
 							// validacion del codigo
-							if (code.includes('-') || code.length !== 6 || !/^[A-Z]{2,3}[0-9]+$/.test(code)) { 
+							if (code.includes('-') || code.length !== 6 || !/^[A-Z]{2,3}[0-9]+$/.test(code)) {
 								bootbox.dialog({
-									title: '<h5 class="text-danger"><i class="fa fa-exclamation-circle fa-fw"></i>&nbsp; Error en [[groups:new-group.course-code]]</h5>',
-									message: '<ul>'+
-											'<li>El código debe tener <b>6 caracteres</b>. <i class="text-danger">Obligatorio</i></li>'+
-											'<li>El código solo debe contener <b>valores alfanuméricos</b>.</li>'+
-											'	<ul>'+
-											'		<li>No se admiten letras en <b>minúscula</b>.</li>'+
-											'		<li>Debe contener mínimo <b>2</b> y máximo <b>3</b> letras al inicio del código, el resto debe ser solo números.</li>'+
-											'	</ul>'+
-											'<li>El código <b>no</b> debe contener guiones (-).</li>'+
-											'</ul>'+
-											'<b class="text-muted">Ejemplos: CI3715, PBG213,...</b>',
+									title: '<h5 class="text-danger"><i class="fa fa-exclamation-circle fa-fw"></i>&nbsp; [[error:group-name-id-field]]</h5>',
+									message: '<ul>' +
+											'<li>[[error:group-name-id-field-long]]</li>' +
+											'<li>[[error:group-name-id-field-alphanum]]</li>' +
+											'<ul>' +
+											'<li>[[error:group-name-id-field-alphanum.lowercase]]</li>' +
+											'<li>[[error:group-name-id-field-alphanum.format]]</li>' +
+											'</ul>' +
+											'<li>[[error:group-name-id-field-dashes]]</li>' +
+											'</ul>' +
+											'<b class="text-muted">[[error:group-name-ex]] CI3715, PBG213,...</b>',
 									closeButton: false,
 									backdrop: true,
 									buttons: {
@@ -73,22 +73,22 @@ define('forum/groups/list', [
 											label: 'OK',
 											className: 'btn-primary',
 										},
-									}
+									},
 								});
 								return;
 							}
 
 							// validacion del nombre
 							name = name.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-							if (name.length > 46 || !/^[A-Za-z\s]+$/.test(name)) { 
+							if (name.length > 46 || !/^[A-Za-z\s]+$/.test(name)) {
 								bootbox.dialog({
-									title: '<h5 class="text-danger"><i class="fa fa-exclamation-circle fa-fw"></i>&nbsp; Error en [[groups:new-group.course-name]]</h5>',
-									message: '<ul>'+
-											'<li>El nombre debe tener máximo 45 caracteres. <i class="text-danger">Obligatorio</i></li>'+
-											'<li>El nombre solo debe contener <b>caracteres alfabéticos</b>.</li>'+
-											'<li>El nombre <b>no</b> debe contener caracteres especiales.</li>'+
-											'</ul>'+
-											'<p class="text-muted">Ejemplos: Ingenieria de Software I.</p>',
+									title: '<h5 class="text-danger"><i class="fa fa-exclamation-circle fa-fw"></i>&nbsp; [[error:group-name-field]]</h5>',
+									message: '<ul>' +
+											'<li>[[error:group-name-field-long]]</li>' +
+											'<li>[[error:group-name-field-alpha]]</li>' +
+											'<li>[[error:group-name-field-especial]]</li>' +
+											'</ul>' +
+											'<b class="text-muted">[[error:group-name-field-name-ex]]</b>',
 									closeButton: false,
 									backdrop: true,
 									buttons: {
@@ -96,7 +96,7 @@ define('forum/groups/list', [
 											label: 'OK',
 											className: 'btn-primary',
 										},
-									}
+									},
 								});
 								return;
 							}
