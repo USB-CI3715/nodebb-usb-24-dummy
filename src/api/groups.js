@@ -40,55 +40,54 @@ groupsAPI.create = async function (caller, data) {
 	data.creatorUid = caller.uid;
 	const groupData = await groups.create(data);
 
-	// Creación de categoria respectiva al grupo
+	// Creación de categoria respectiva al grupo. Se crea la categoría si el grupo creado tiene el formato
+	// `[codigo] | [Nombre] | [Trimestre y Año] | Sec. [# Seccion]`
+	const courseData = groupData.name.split(' | ');
+	if (courseData.length === 4) {
+		const courseCode = courseData[0]; // Código del curso
+		const courseName = courseData[1]; // Nombre del curso
 
-	// Descripción divertida y académica de un ambiente de preguntas y respuestas.
-	function createCourseDescription(courseCode, courseName, trimester, year, section, teacher) {
-		return `💬 ¡Bienvenidos al fascinante ambiente de preguntas y respuestas en "${courseName}" (${courseCode})! 
+		const timeCourseData = courseData[2].split(' '); // Momento en que se imparte el curso
+		// Diccionario para transformar los códigos de trimestre a sus significados
+		const trimesterDictionary = {
+			EM: 'Enero-Marzo',
+			AJ: 'Abril-Julio',
+			SD: 'Septiembre-Diciembre',
+			PI: 'Periodo Intensivo',
+			SC: 'Periodo Intensivo',
+		};
+		const trimester = trimesterDictionary[timeCourseData[0]]; // Trimestre del curso
+		const year = timeCourseData[1]; // Año del curso
+
+		const section = courseData[3].split(' ')[1]; // Sección asociada al curso.
+
+		const [fullDataGroup] = await Promise.all([groups.get(groupData.name, {})]);
+		const teacher = fullDataGroup.members[0].username; // Profesor respectivo del curso.
+
+		const descriptionCurse = `💬 ¡Bienvenidos al fascinante ambiente de preguntas y respuestas en "${courseName}" (${courseCode})! 
 		Este espacio se lleva a cabo en el trimestre ${trimester} del año ${year}, en la sección ${section}. 
 		Bajo la moderación experta de el/la Prof. ${teacher} 👨‍🏫👩‍🏫.`;
+
+		// Inicialización de la categoría
+		const dataCategory = {
+			name: groupData.name,
+			parentCid: null,
+			order: null,
+			description: descriptionCurse,
+			descriptionParsed: descriptionCurse,
+			icon: 'fa-book',
+			bgColor: null,
+			color: null,
+			disabled: 0,
+			link: null,
+			class: null,
+			backgroundImage: null,
+			cloneFromCid: null,
+			cloneChildren: null,
+		};
+		await categories.create(dataCategory); // Creación de la categoría.
 	}
 
-	// Extracción de información del curso.
-	const courseData = groupData.name.split(' | ');
-
-	const courseCode = courseData[0]; // Código del curso
-	const courseName = courseData[1]; // Nombre del curso
-
-	const timeCourseData = courseData[2].split(' '); // Momento en que se imparte el curso
-	// Diccionario para transformar los códigos de trimestre a sus significados
-	const trimesterDictionary = {
-		EM: 'Enero-Marzo',
-		AJ: 'Abril-Julio',
-		SD: 'Septiembre-Diciembre',
-		PI: 'Periodo Intensivo',
-		SC: 'Periodo Intensivo',
-	};
-	const trimester = trimesterDictionary[timeCourseData[0]]; // Trimestre del curso
-	const year = timeCourseData[1]; // Año del curso
-
-	const section = courseData[3].split(' ')[1]; // Sección asociada al curso.
-
-	const teacher = await user.getUserData(caller.uid); // Profesor respectivo del curso.
-
-	// Inicialización de la categoría
-	const dataCategory = {
-		name: groupData.name,
-		parentCid: null,
-		order: null,
-		description: createCourseDescription(courseCode, courseName, trimester, year, section, teacher.username),
-		descriptionParsed: createCourseDescription(courseCode, courseName, trimester, year, section, teacher.username),
-		icon: 'fa-book',
-		bgColor: null,
-		color: null,
-		disabled: 0,
-		link: null,
-		class: null,
-		backgroundImage: null,
-		cloneFromCid: null,
-		cloneChildren: null,
-	};
-	await categories.create(dataCategory); // Creación de la categoría.
 
 	logGroupEvent(caller, 'group-create', {
 		groupName: data.name,
@@ -96,6 +95,7 @@ groupsAPI.create = async function (caller, data) {
 
 	return groupData;
 };
+
 
 groupsAPI.update = async function (caller, data) {
 	if (!data) {
