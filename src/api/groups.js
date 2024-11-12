@@ -133,11 +133,12 @@ groupsAPI.delete = async function (caller, data) {
 	const allCategories = await categories.getAllCategories();
 	const targetName = groupName;
 	const cid = getCategoryCIDByName(allCategories, targetName);
+	if (cid) {
+		// Eliminacion de la categoría asociada al grupo.
+		await categories.purge(cid, caller.uid);
+	}
 
 	await groups.destroy(groupName);
-
-	// Eliminacion de la categoría asociada al grupo.
-	await categories.purge(cid, caller.uid);
 
 	logGroupEvent(caller, 'group-delete', {
 		groupName: groupName,
