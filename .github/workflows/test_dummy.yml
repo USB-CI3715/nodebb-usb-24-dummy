@@ -78,4 +78,4 @@ jobs:
           node app --setup="${SETUP}" --ci="${CI}"
 
       - name: Dummy Test (USB OπNIONS)
-        run: npm dummyTests
+        run: npm run dummyTests
