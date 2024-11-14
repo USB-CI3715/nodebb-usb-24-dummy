@@ -3,30 +3,30 @@
 const assert = require('assert');
 const { JSDOM } = require('jsdom');
 const { setTimeout } = require('node:timers/promises');
-const db = require('../test/mocks/databasemock.js');
+const db = require('./mocks/databasemock');
 const api = require('../src/api');
+
 const originalPost = api.post;
 
 // Función para crear un espía
 function createSpy(fn) {
-	const spy = function(...args) {
+	const spy = function (...args) {
 		spy.calls.push(args);
 		return fn.apply(this, args);
 	};
 	spy.calls = []; // Almacena las llamadas
 	return spy;
-};
+}
 
 describe('Group Creation Modal', () => {
 	before(() => {
 		const dom = new JSDOM('<html><body></body></html>');
 		global.window = dom.window;
 		global.document = dom.window.document;
-		document.body.innerHTML = '<button data-action="new">Create Group</button>';
+		global.document.body.innerHTML = '<button data-action="new">Create Group</button>';
 
 		global.jQuery = require('jquery');
 		global.$ = global.jQuery;
-		const { $ } = global;
 
 		global.config = { userLang: 'en-GB' };
 
@@ -37,13 +37,15 @@ describe('Group Creation Modal', () => {
 		const list = require('../public/src/client/groups/list');
 		const bootbox = require('bootbox');
 
+		/* eslint-disable-next-line no-unused-expressions */
 		list.init;
 	});
 
 	it('should show modal when create group button is clicked', () => {
+		const { $ } = global;
 		$('button[data-action="new"]').click();
 
-		setTimeout(() => {
+		setTimeout((done) => {
 			const modal = $('.bootbox'); // Seleccionar el modal creado por bootbox
 			assert(modal.length > 0, 'Modal should be created');
 			assert(modal.is(':visible'), 'Modal should be visible');
@@ -52,12 +54,12 @@ describe('Group Creation Modal', () => {
 	});
 
 	it('should have required form fields in modal', () => {
+		const { $ } = global;
 		$('button[data-action="new"]').click();
 
 		/* Check specific fields exist */
-		setTimeout(() => {
+		setTimeout((done) => {
 			const modal = $('.bootbox'); // Seleccionar el modal creado por bootbox
-			//console.log(modal.html()); // Imprimir el contenido del modal para depuración
 
 			// Verificar que los campos requeridos existan en el modal
 			assert(modal.find('#newGroupCode').length > 0, 'Code field should exist');
@@ -108,13 +110,14 @@ describe('Group Creation Modal', () => {
 		}, 100);
 	});
 
-	it('should create a group when all fields are valid', function(done) {
+	it('should create a group when all fields are valid', (done) => {
+		const { $ } = global;
 		const currentYear = new Date().getFullYear();
 		const expectedPayload = {
 			name: `CI3715 | Ingenieria de Software I | SD ${currentYear} | Sec. 1`,
 		};
 		api.post = createSpy(originalPost);
-		
+
 		$('button[data-action="new"]').click();
 
 		$('#newGroupCode').val('CI3715');
@@ -124,7 +127,7 @@ describe('Group Creation Modal', () => {
 		setTimeout(() => {
 			$('.bootbox .btn-primary').click();
 
-			const calls = api.post.calls;
+			const { calls } = api.post;
 			assert.equal(calls.length, 1); // Debe haber una llamada
 			assert.deepEqual(calls[0][0], '/groups'); // Verifica la URL
 			assert.deepEqual(calls[0][1], expectedPayload);
@@ -135,13 +138,15 @@ describe('Group Creation Modal', () => {
 		done();
 	});
 
-	describe('should not create a group when one of the required fields is empty', () =>{
+	describe('should not create a group when one of the required fields is empty', () => {
 		beforeEach(() => {
+			const { $ } = global;
 			api.post = createSpy(originalPost);
 			$('button[data-action="new"]').click();
 		});
-		
-		it('should not create a group when the code field is empty', function(done) {
+
+		it('should not create a group when the code field is empty', (done) => {
+			const { $ } = global;
 			$('#newGroupCode').val('');
 			$('#newGroupName').val('Ingenieria de Software I');
 			$('#newGroupTrim').val('SD');
@@ -149,7 +154,7 @@ describe('Group Creation Modal', () => {
 			setTimeout(() => {
 				$('.bootbox .btn-primary').click();
 
-				const calls = api.post.calls;
+				const { calls } = api.post;
 				assert.equal(calls.length, 0); // No debe haber llamadas a la API
 
 				done();
@@ -157,7 +162,8 @@ describe('Group Creation Modal', () => {
 			done();
 		});
 
-		it('should not create a group when the name field is empty', function(done) {
+		it('should not create a group when the name field is empty', (done) => {
+			const { $ } = global;
 			$('#newGroupCode').val('CI3715');
 			$('#newGroupName').val('');
 			$('#newGroupTrim').val('SD');
@@ -165,7 +171,7 @@ describe('Group Creation Modal', () => {
 			setTimeout(() => {
 				$('.bootbox .btn-primary').click();
 
-				const calls = api.post.calls;
+				const { calls } = api.post;
 				assert.equal(calls.length, 0); // No debe haber llamadas a la API
 
 				done();
@@ -173,7 +179,8 @@ describe('Group Creation Modal', () => {
 			done();
 		});
 
-		it('should not create a group when the name field is empty', function(done) {
+		it('should not create a group when the name field is empty', (done) => {
+			const { $ } = global;
 			$('#newGroupCode').val('CI3715');
 			$('#newGroupName').val('Ingenieria de Software I');
 			$('#newGroupTrim').val('');
@@ -181,7 +188,7 @@ describe('Group Creation Modal', () => {
 			setTimeout(() => {
 				$('.bootbox .btn-primary').click();
 
-				const calls = api.post.calls;
+				const { calls } = api.post;
 				assert.equal(calls.length, 0); // No debe haber llamadas a la API
 
 				done();
@@ -194,49 +201,52 @@ describe('Group Creation Modal', () => {
 		});
 	});
 
-	describe('should show an error modal when code or name fields are invalid', () =>{
+	describe('should show an error modal when code or name fields are invalid', () => {
 		beforeEach(() => {
+			const { $ } = global;
 			api.post = createSpy(originalPost);
 			$('button[data-action="new"]').click();
 		});
 
-		it('should show an error modal when code field is invalid', function(done) {
-			// Asignamos valores inválidos a los campos
+		it('should show an error modal when code field is invalid', (done) => {
+			const { $ } = global;
+			// Asignamos valores inválidos al campo
 			$('#newGroupCode').val('CI-3715'); // Campo de código erroneo
 			$('#newGroupName').val('Ingenieria de Software I');
 			$('#newGroupTrim').val('SD');
-	
+
 			setTimeout(() => {
 				$('.bootbox .btn-primary').click(); // Simulamos el clic en el botón de confirmar
-	
+
 				// Aquí verificamos que se ha creado la ventana modal
-				const modal = $('.bootbox'); // Suponiendo que la clase de la ventana modal es 'bootbox'
+				const modal = $('.bootbox');
 				assert.isTrue(modal.is(':visible')); // Verificamos que la modal esté visible
-				
+
 				assert(modal.find('h5.text-danger').length > 0, 'Modal should have a title with class text-danger');
 				assert(modal.find('h5.text-danger').includes('Error in Course ID'), 'Modal title should include "Error in Course ID"');
-	
+
 				done();
 			}, 100);
 			done();
 		});
 
-		it('should show an error modal when name field is invalid', function(done) {
-			// Asignamos valores inválidos a los campos
+		it('should show an error modal when name field is invalid', (done) => {
+			const { $ } = global;
+			// Asignamos valores inválidos al campo
 			$('#newGroupCode').val('CI3715');
 			$('#newGroupName').val('Alimentacion, nutricion y salud del hombre contemporaneo'); // Campo de nombre erroneo
 			$('#newGroupTrim').val('SD');
-	
+
 			setTimeout(() => {
 				$('.bootbox .btn-primary').click(); // Simulamos el clic en el botón de confirmar
-	
+
 				// Aquí verificamos que se ha creado la ventana modal
-				const modal = $('.bootbox'); // Suponiendo que la clase de la ventana modal es 'bootbox'
+				const modal = $('.bootbox');
 				assert.isTrue(modal.is(':visible')); // Verificamos que la modal esté visible
-				
+
 				assert(modal.find('h5.text-danger').length > 0, 'Modal should have a title with class text-danger');
 				assert(modal.find('h5.text-danger').includes('Error in Course Name'), 'Modal title should include "Error in Course Name"');
-	
+
 				done();
 			}, 100);
 			done();
@@ -246,4 +256,4 @@ describe('Group Creation Modal', () => {
 			api.post = originalPost;
 		});
 	});
-})
+});
