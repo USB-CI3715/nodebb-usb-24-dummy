@@ -86,13 +86,12 @@ describe('Back-End: User Rol Teacher', () => {
 			});
 		});
 
-		it('should be a Teacher', (done) => {
+		it('should be a Teacher', async () => {
 			groups.get('Teachers', {}, (err, groupObj) => {
 				assert.ifError(err);
 				assert.strictEqual(groupObj.name, teacherGroup.name);
 				assert.strictEqual(groupObj.memberCount, 1);
 				assert.strictEqual(groupObj.members[0].uid, testUid);
-				done();
 			});
 		});
 
