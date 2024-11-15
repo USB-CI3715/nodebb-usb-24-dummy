@@ -95,6 +95,13 @@
 
 ## Cómo Usar **USB OπNIONS**
 
+>[!CAUTION]
+> Para poder utilizar todas estas funcionalidades es necesario dejar el tema por defecto de la aplicación (`Theme Harmony`)
+> Esto quiere decir que un administrador desde el dashboard no puede cambiar el tema por defecto de los siguientes mostrados puesto que de hacerlo se pierden las funcionalidades implementadas
+>
+> ![image](https://github.com/user-attachments/assets/bdd5d125-45c6-4e1f-8c8f-9c641ec21bb9)
+
+
 ### Usuario con rol `Teachers`
 La aplicación permite el registro de usuarios con rol de Profesor. En este registro se incluyen los campos `Nombre Completo` y la casilla de marcar como profesor.
 
