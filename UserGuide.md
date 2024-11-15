@@ -5,11 +5,12 @@
 ## Índice
 - [Instrucciones de Despliegue](#instrucciones-de-despliegue)
   - [Prerrequisitos](#prerrequisitos)
-  - [Instalación de **USB OπNIONS**](#instalación-de-usb-opnions)
-- [Cómo Usar **USB OπNIONS**](#cómo-usar-usb-opnions)
+  - [Instalación de **USB OπNIONS**](#instalación-de-usb-oπnions)
+- [Cómo Usar **USB OπNIONS**](#cómo-usar-usb-oπnions)
   - [Usuario con rol `Teachers`](#usuario-con-rol-teachers)
   - [Creación de Materias](#creación-de-materias)
   - [Utilización de las Categorías de las Materias](#utilización-de-las-categorías-de-las-materias)
+- [Pruebas Automatizadas](#pruebas-automatizadas)
 
 ## Instrucciones de Despliegue
 ### Prerrequisitos
@@ -89,14 +90,15 @@
    **El resto de los campos solicitados deben dejarse sin modificación a menos que haya cambiado el puerto de redis.**
 4. Iniciar Sesión con su cuenta de administrador. Una vez hecho esto se desplegará la aplicación, mostrando la siguiente vista:
 
-   ![imagen](imagen.png)
+   ![imagen](https://github.com/user-attachments/assets/4c1d52da-7604-4ca2-9e1f-8b82ba9bac4b)
+
 
 ## Cómo Usar **USB OπNIONS**
 
 ### Usuario con rol `Teachers`
 La aplicación permite el registro de usuarios con rol de Profesor. En este registro se incluyen los campos `Nombre Completo` y la casilla de marcar como profesor.
 
- <img src="imagen_2.png" alt="Registro" align="center"> 
+![imagen](https://github.com/user-attachments/assets/264616b8-fbe0-46fa-93d7-7885a8b807e6)
 
 En concreto, este rol permite:
    - Crear y gestionar una materia. En detalle:
@@ -115,19 +117,27 @@ En concreto, este rol permite:
 * La creación de materias se realiza mediante la siguiente vista modal, para la cual es necesario el rellenado de los campos `Course ID`, `Course Name` y `Trimester`.
 
   Los demás campo tienen como valores por defecto el año actual y la primera sección. Sin embargo de ser necesario se puede hacer la selección manual de los mismos.
-![imagen](imagen_3.png)
+
+  ![imagen](https://github.com/user-attachments/assets/b33fc8a8-4fc4-49ef-af2d-6362f49dc425)
+
 
 * Para el campo `Trimester` se tiene un desplegable con las siguientes opciones correspondientes al sistema trimestral ofrecido por la USB.
-![imagen](imagen_4.png)
+
+  ![imagen](https://github.com/user-attachments/assets/c0843f8b-9b35-4081-949f-32bdd23ba593)
+
 
 * Para el campo `Year` se tiene un desplegable de los años disponibles, tomando el actual y mostrando los 9 próximos.
-![imagen](imagen_5.png)
+  ![imagen](https://github.com/user-attachments/assets/cb7fd5ca-b1e9-4b1a-aa59-9a64cd520c36)
+
 
 * Para el campo `Section` se tiene un desplegable con 10 sección disponibles.
-![imagen](imagen_6.png)
+
+  ![imagen](https://github.com/user-attachments/assets/ba9900b2-3646-448c-adc4-5649b829b992)
 
 Una vez hecho esto, se crea la materia con el nombre mostrado en la imagen siguiente, donde cabe aclarar que el nombre del Profesor, a pesar de ser mostrado en el titulo, **NO** forma parte del nombre de la materia. Este solo es mostrado con fines estéticos.
-![imagen](imagen_7.png)
+
+![imagen](https://github.com/user-attachments/assets/1ba41c1e-a73b-4bf0-b670-11d53b9298a2)
+
 
 >[!NOTE]
 > Esta funcionalidad genera un espacio de comunicación entre profesor y estudiante mediante una categoría.
@@ -136,13 +146,32 @@ Una vez hecho esto, se crea la materia con el nombre mostrado en la imagen sigui
 
 ### Utilización de las Categorías de las Materias
 Cuando una materia es creada, esta genera una categoría que posee el mismo nombre del curso creado. Para visualizarla debemos dirigirnos al apartado "Categorias" ubicado en la barra lateral izquierda.
-![imagen](imagen_8.png)
+
+![imagen](https://github.com/user-attachments/assets/ee714dbb-8042-474a-a51f-5d641c2e5b47)
+
 
 Es gracias a esta categoría que los profesores y estudiantes pueden entablar discusiones mediante tópicos relacionados a la materia. 
-![imagen](imagen_9.png)
+
+![imagen](https://github.com/user-attachments/assets/44fc3373-554c-4b91-b664-08ac269a39d0)
+
 
 Acá se muestra un ejemplo de la interacción entre un estudiante y su profesor.
-![imagen](imagen_10.png)
+
+![imagen](https://github.com/user-attachments/assets/78a48ad9-980b-4c2d-b456-54e2ef065197)
+
 
 Cada post realizado en este espacio es desplegado en la materia correspondiente, como un historial en que los usuarios inscritos en la misma pueden consultar.
-![imagen](imagen_11.png)
+
+![imagen](https://github.com/user-attachments/assets/de22a858-f10b-4b8d-8f05-76d2fa61c7e0)
+
+## Pruebas Automatizadas
+
+Para probar las funcionalidades expuestas, se hizo uso de *GitHub Actions* para la inclución de una Suite de Pruebas, con el fin de seguir el espíritu de CI/CD.
+
+Las mismas están encontradas en el siguiente [enlance](https://github.com/USB-CI3715/nodebb-usb-24-dummy/tree/f24/test_dummy) y las especificaciones se encuentran en los siguientes Pull Requests:
+- [Pruebas de Junior Lara](https://github.com/USB-CI3715/nodebb-usb-24-dummy/pull/82) 
+- [Pruebas de Astrid Alvarado](https://github.com/USB-CI3715/nodebb-usb-24-dummy/pull/83)
+- [Pruebas de Andrea Díaz](https://github.com/USB-CI3715/nodebb-usb-24-dummy/pull/85)
+- [Pruebas de Laura Parilli]()
+- [Pruebas de Carlo Herrera]()
+- [Pruebas de Luis García]()
