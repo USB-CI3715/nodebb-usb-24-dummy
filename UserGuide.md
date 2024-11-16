@@ -176,7 +176,11 @@ Cada post realizado en este espacio es desplegado en la materia correspondiente,
 
 ## Pruebas Automatizadas
 
-Para probar las funcionalidades expuestas, se hizo uso de *GitHub Actions* para la inclusión de una Suite de Pruebas, con el fin de seguir el espíritu de CI/CD. También, se puede correr la suite de pruebas localmente ejecutando el comando ´npm run dummyTests´
+Para probar las funcionalidades expuestas, se hizo uso de *GitHub Actions* para la inclusión de una Suite de Pruebas, con el fin de seguir el espíritu de CI/CD. También, se puede correr la suite de pruebas localmente ejecutando el comando 
+
+```shell
+npm run dummyTests
+```
 
 Las mismas están encontradas en el siguiente [enlace](https://github.com/USB-CI3715/nodebb-usb-24-dummy/tree/f24/test_dummy) y las especificaciones se encuentran en los siguientes Pull Requests:
 - [Pruebas de Junior Lara](https://github.com/USB-CI3715/nodebb-usb-24-dummy/pull/82) 
