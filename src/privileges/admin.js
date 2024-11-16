@@ -21,7 +21,7 @@ const _privilegeMap = new Map([
 	['admin:categories', { label: '[[admin/manage/privileges:admin-categories]]', type: 'admin' }],
 	['admin:privileges', { label: '[[admin/manage/privileges:admin-privileges]]', type: 'admin' }],
 	['admin:admins-mods', { label: '[[admin/manage/privileges:admin-admins-mods]]', type: 'admin' }],
-	['admin:users', { label: '[[admin/manage/privileges:admin-users]]', type: 'admin' }],
+	['admin:users', { label: '[[admin/manage/privileges:admin-users]]', type: 'user' }],
 	['admin:groups', { label: '[[admin/manage/privileges:admin-groups]]', type: 'admin' }],
 	['admin:tags', { label: '[[admin/manage/privileges:admin-tags]]', type: 'admin' }],
 	['admin:settings', { label: '[[admin/manage/privileges:admin-settings]]', type: 'admin' }],
