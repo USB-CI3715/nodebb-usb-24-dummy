@@ -188,4 +188,4 @@ Las mismas están encontradas en el siguiente [enlace](https://github.com/USB-CI
 - [Pruebas de Andrea Díaz](https://github.com/USB-CI3715/nodebb-usb-24-dummy/pull/85)
 - [Pruebas de Laura Parilli]()
 - [Pruebas de Carlo Herrera]()
-- [Pruebas de Luis García]()
+- [Pruebas de Luis García](https://github.com/USB-CI3715/nodebb-usb-24-dummy/pull/87)
