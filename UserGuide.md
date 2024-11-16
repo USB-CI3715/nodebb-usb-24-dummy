@@ -152,7 +152,7 @@ Una vez hecho esto, se crea la materia con el nombre mostrado en la imagen sigui
 > Para más información leer el posterior inciso. 
 
 ### Utilización de las Categorías de las Materias
-Cuando una materia es creada, esta genera una categoría que posee el mismo nombre del curso creado. Para visualizarla debemos dirigirnos al apartado "Categorias" ubicado en la barra lateral izquierda.
+Cuando una materia es creada, esta genera una categoría que posee el mismo nombre del curso creado. Para visualizarla debemos dirigirnos al apartado "Categorías" ubicado en la barra lateral izquierda.
 
 ![imagen](https://github.com/user-attachments/assets/ee714dbb-8042-474a-a51f-5d641c2e5b47)
 
@@ -173,9 +173,9 @@ Cada post realizado en este espacio es desplegado en la materia correspondiente,
 
 ## Pruebas Automatizadas
 
-Para probar las funcionalidades expuestas, se hizo uso de *GitHub Actions* para la inclución de una Suite de Pruebas, con el fin de seguir el espíritu de CI/CD.
+Para probar las funcionalidades expuestas, se hizo uso de *GitHub Actions* para la inclusión de una Suite de Pruebas, con el fin de seguir el espíritu de CI/CD. 
 
-Las mismas están encontradas en el siguiente [enlance](https://github.com/USB-CI3715/nodebb-usb-24-dummy/tree/f24/test_dummy) y las especificaciones se encuentran en los siguientes Pull Requests:
+Las mismas están encontradas en el siguiente [enlace](https://github.com/USB-CI3715/nodebb-usb-24-dummy/tree/f24/test_dummy) y las especificaciones se encuentran en los siguientes Pull Requests:
 - [Pruebas de Junior Lara](https://github.com/USB-CI3715/nodebb-usb-24-dummy/pull/82) 
 - [Pruebas de Astrid Alvarado](https://github.com/USB-CI3715/nodebb-usb-24-dummy/pull/83)
 - [Pruebas de Andrea Díaz](https://github.com/USB-CI3715/nodebb-usb-24-dummy/pull/85)
