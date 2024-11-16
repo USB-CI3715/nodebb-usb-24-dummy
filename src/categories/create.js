@@ -93,8 +93,6 @@ module.exports = function (Categories) {
 
 		await privileges.categories.give(result.defaultPrivileges, category.cid, 'group.members');
 		await privileges.categories.give(result.modPrivileges, category.cid, ['administrators', 'Global Moderators']);
-		//await privileges.categories.give(result.guestPrivileges, category.cid, ['guests', 'spiders']);
-
 		cache.del('categories:cid');
 		await clearParentCategoryCache(parentCid);
 
