@@ -92,6 +92,9 @@
 
    ![imagen](https://github.com/user-attachments/assets/4c1d52da-7604-4ca2-9e1f-8b82ba9bac4b)
 
+>[!NOTE]
+> La página de NodeBB se crea con cuatro categorías por defecto, estas se adaptaron para que nuestra implementación universitaria
+> contara con foros de uso general relacionados al tema
 
 ## Cómo Usar **USB OπNIONS**
 
