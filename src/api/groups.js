@@ -97,7 +97,7 @@ groupsAPI.create = async function (caller, data) {
 			cloneChildren: null,
 		};
 		const categoryData = await categories.create(dataCategory);
-		
+
 		data.memberPostCids = `${categoryData.cid}`;
 		await groups.update(groupData.name, data);
 	}
