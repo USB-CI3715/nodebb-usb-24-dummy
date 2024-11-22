@@ -50,7 +50,7 @@ Categories.getCategoryById = async function (data) {
 	}
 	const [topics, topicCount, watchState, , parent] = await Promise.all(promises);
 
-	category.topics = topics.topics;
+	category.topics = topics.data.name;
 	category.nextStart = topics.nextStart;
 	category.topic_count = topicCount;
 	category.isWatched = watchState[0] === Categories.watchStates.watching;
